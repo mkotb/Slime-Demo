@@ -14,7 +14,7 @@
         "To close the window, either enter the (same) key combination below, or click the X on your popped up window.";
     const footer = !open ? 
         "Nice! Let's see how to close this window" :
-        "Viola! Press the arrow to continue";
+        "Voila! Press the arrow to continue";
 
     var ctrlHeld = false;
     var shiftHeld = false;
