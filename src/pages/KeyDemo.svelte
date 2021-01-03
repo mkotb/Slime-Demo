@@ -1,6 +1,5 @@
 <script>
-import { onDestroy, onMount } from "svelte";
-
+    import { onDestroy, onMount } from "svelte";
 
     export var allowNext = false;
     export let open;
@@ -8,7 +7,7 @@ import { onDestroy, onMount } from "svelte";
 
     const isMac = window.navigator.platform.indexOf("Mac") >= 0;
     const beginningKey = isMac ? "CMD" : "CTRL";
-    const beginningKeyName = isMac ? "Meta" : "Control";
+    const beginningKeyName = isMac ? "meta" : "control";
 
     const header = !open ?
         "Let's get started! To begin, try sticking this window on top by pressing the following keys:" : 
@@ -20,20 +19,31 @@ import { onDestroy, onMount } from "svelte";
     var ctrlHeld = false;
     var shiftHeld = false;
     var pHeld = false;
+    var showHint = false;
 
     function onKey(event, down) {
-        switch(event.key) {
+        switch(event.key.toLowerCase()) {
             case beginningKeyName:
                 ctrlHeld = down;
                 break;
-            case "Shift":
+            case "shift":
                 shiftHeld = down;
                 break;
-            case "P":
+            case "p":
                 pHeld = down;
+                
+                // usually something captures the combo, so we do not receive the up event
+                if (down) {
+                    resetP();
+
+                    if (ctrlHeld && shiftHeld && !allowNext) {
+                        showHint = true;
+                    }
+                }
                 break;
         }
     }
+
     function onStick() {
         if (!focused) {
             return;
@@ -41,8 +51,11 @@ import { onDestroy, onMount } from "svelte";
 
         pHeld = true;
         allowNext = true;
-        console.log("the key did it!");
 
+        resetP();
+    }
+
+    function resetP() {
         setTimeout(() => {
             pHeld = false;
         }, 1000);
@@ -83,6 +96,16 @@ import { onDestroy, onMount } from "svelte";
         </span>
     </span>
 
+    {#if showHint}
+        <span class="hint">
+            Not working? Make sure the chrome extension is installed, and that
+            the command is configured as {beginningKey} + SHIFT + P on
+            this config panel: <br/>
+
+            <pre>chrome://extensions/configureCommands</pre>
+        </span>
+    {/if}
+
     {#if allowNext}
         <span class="next">
             {footer}
@@ -103,6 +126,13 @@ import { onDestroy, onMount } from "svelte";
 
     .hidden {
         opacity: 0.5;
+    }
+
+    .hint {
+        font-weight: 200;
+        font-size: 1.5vh;
+        margin-top: 5vh;
+        max-width: 75vw;
     }
 
     .next {

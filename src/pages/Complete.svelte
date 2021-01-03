@@ -10,7 +10,18 @@
         Congratulations! You now know how to use Slime.
     </p>
 
-    <p>Feel free to close this window and get started on improving your productivity!</p>
+    <p>
+        Slime is free of charge, free of ads, and free of any tracking.
+    </p>
+
+    <p>
+        If you enjoy this extension, please write me a review on the Chrome Extensions webstore, or
+        <a href="https://github.com/mkotb/Slime">⭐️ this project on GitHub.</a>
+    </p>
+
+    <p>
+        Enjoy 👋
+    </p>
 </div>
 
 <style>

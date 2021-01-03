@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
 
     export let allowNext = false;
+    let needHelp = false;
     let video;
 
     onMount(() => {
@@ -10,7 +11,14 @@
         slimeIntegration.onResize = function () {
             allowNext = true;
         };
-    })
+
+        setTimeout(() => {
+            needHelp = true;
+        }, 5000);
+    });
+
+    const isMac = window.navigator.platform.indexOf("Mac") >= 0;
+    const beginningKey = isMac ? "CMD" : "CTRL";
 </script>
 
 <div class="page">
@@ -22,6 +30,12 @@
 
     {#if allowNext}
         <h1>Nice! Now when you're ready, click the arrow below to continue.</h1>
+    {:else if needHelp}
+        <p>Need help?</p>
+        <p>
+            Here's a hint: You can stick this tab on top either by clicking the
+            extension icon on your top toolbar, or use the {beginningKey} + SHIFT + P hotkey.
+        </p>
     {/if}
 </div>
 
@@ -33,11 +47,18 @@
     .video {
         height: 40vh;
         width: 76vh;
-        clip-path: inset(10px 0px 10px 0px);
+        clip-path: inset(2vh 0px 1.5vh 0px);
         margin-top: 10vh;
+        margin-bottom: 5vh;
     }
 
     h1 {
-        margin-top: 10vh;
+        margin-top: 5vh;
+    }
+
+    p {
+        font-weight: 200;
+        font-size: 2rem;
+        max-width: 80vw;
     }
 </style>

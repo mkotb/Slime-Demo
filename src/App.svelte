@@ -36,6 +36,10 @@
     <Next
         allowNext={allowNext && currPage < pages.length - 1}
         on:click={onNextClick} />
+
+    <span class="footer">
+        Made by <a href="https://github.com/mkotb/">Mazen Kotb</a> with ❤️ on <a href="https://github.com/mkotb/Slime-Demo">GitHub</a>
+    </span>
 </main>
 
 <style>
@@ -61,6 +65,13 @@
     .hidden-bottom {
         position: absolute;
         transform: translateY(100%);
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 10;
+        left: 10;
+        opacity: 0.6;
     }
     
     :global(.page) {

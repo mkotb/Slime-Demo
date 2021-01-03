@@ -7,7 +7,10 @@
     <h1>Welcome to Slime!</h1>
 
     <p>
-        Slime is a chrome extension that allows you to stick any of your tabs on top! <br/>
+        Slime is a chrome extension that allows you to stick any of your tabs on top!
+    </p>
+
+    <p>
         That means no matter what you're doing, you'll always be able to see your sticked tab on top.
         No more need to split-screen or constantly move between windows!
     </p>
