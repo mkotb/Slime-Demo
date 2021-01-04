@@ -4,6 +4,7 @@
     import KeyDemo from './pages/KeyDemo.svelte';
     import ResizeDemo from './pages/ResizeDemo.svelte';
     import Complete from './pages/Complete.svelte';
+    import { onMount } from 'svelte';
 
     let allowNext;
     let currPage = 0;
@@ -16,30 +17,39 @@
         {id: 'complete', component: Complete, props: {}}
     ];
 
-    async function onNextClick() {
+    function onNextClick() {
         allowNext = false;
         currPage++;
     }
+
+    onMount(() => {
+        window.addEventListener('wheel', (e) => {
+            if (allowNext && e.deltaY > 2) {
+                onNextClick();
+            }
+        });
+    });
 </script>
 
 <main>
     {#each pages as page, i (page.id)}
-        <div class={i < currPage ? "hidden-top" : (i > currPage ? "hidden-bottom" : "visible")}>
+        <section class={i < currPage ? "hidden-top" : (i > currPage ? "hidden-bottom" : "visible")}
+            aria-hidden={i !== currPage}>
             {#if i == currPage}
                 <svelte:component bind:allowNext focused={i == currPage} this={page.component} {...page.props} />
             {:else}
                 <svelte:component focused={i == currPage} this={page.component} {...page.props} />
             {/if}
-        </div>
+        </section>
     {/each}
 
     <Next
         allowNext={allowNext && currPage < pages.length - 1}
         on:click={onNextClick} />
 
-    <span class="footer">
-        Made by <a href="https://github.com/mkotb/">Mazen Kotb</a> with ❤️ on <a href="https://github.com/mkotb/Slime-Demo">GitHub</a>
-    </span>
+    <footer>
+        Made by <a tabindex="-1" href="https://github.com/mkotb/">Mazen Kotb</a> with ❤️ on <a tabindex="-1"href="https://github.com/mkotb/Slime-Demo">GitHub</a>
+    </footer>
 </main>
 
 <style>
@@ -67,7 +77,7 @@
         transform: translateY(100%);
     }
 
-    .footer {
+    footer {
         position: fixed;
         bottom: 10;
         left: 10;

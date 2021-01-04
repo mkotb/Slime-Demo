@@ -16,7 +16,7 @@
 
     <p>
         If you enjoy this extension, please write me a review on the Chrome Extensions webstore, or
-        <a href="https://github.com/mkotb/Slime">⭐️ this project on GitHub.</a>
+        <a tabindex="-1" href="https://github.com/mkotb/Slime">⭐️ this project on GitHub.</a>
     </p>
 
     <p>

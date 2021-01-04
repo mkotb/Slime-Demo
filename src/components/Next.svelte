@@ -3,9 +3,9 @@
 </script>
 
 <div class={allowNext ? "visible" : "hidden"}>
-    <span on:click class="material-icons">
-        expand_more
-    </span>
+    <button on:click>
+        <img src="./assets/down-arrow.svg" alt="Arrow to next page">
+    </button>
 </div>
 
 <style>
@@ -15,14 +15,20 @@
         width: 100%;
     }
 
-    span {
-        font-size: 5vh;
+    button {
         padding-bottom: 1vh;
         animation-duration: 2s;
         animation-iteration-count: infinite;
         animation-name: bounce;
         animation-timing-function: ease;
         cursor: pointer;
+        background-color: transparent;
+        border: none;
+    }
+
+    img {
+        width: 4vh;
+        height: 4vh;
     }
 
     @keyframes bounce {

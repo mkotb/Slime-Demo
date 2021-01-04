@@ -18,7 +18,7 @@
 
     var ctrlHeld = false;
     var shiftHeld = false;
-    var pHeld = false;
+    var yHeld = false;
     var showHint = false;
 
     function onKey(event, down) {
@@ -29,12 +29,12 @@
             case "shift":
                 shiftHeld = down;
                 break;
-            case "p":
-                pHeld = down;
+            case "y":
+                yHeld = down;
                 
                 // usually something captures the combo, so we do not receive the up event
                 if (down) {
-                    resetP();
+                    resetY();
 
                     if (ctrlHeld && shiftHeld && !allowNext) {
                         showHint = true;
@@ -49,7 +49,7 @@
             return;
         }
 
-        pHeld = true;
+        yHeld = true;
         allowNext = true;
 
         resetP();
@@ -57,7 +57,7 @@
 
     function resetP() {
         setTimeout(() => {
-            pHeld = false;
+            yHeld = false;
         }, 1000);
     }
 
@@ -66,6 +66,12 @@
 
     onMount(() => {
         slimeIntegration.stickListeners.push(onStick);
+
+        setTimeout(() => {
+            if (!allowNext) {
+                showHint = true;
+            }
+        }, 5000);
     });
 
     onDestroy(() => {
@@ -91,24 +97,25 @@
             SHIFT + 
         </span>
 
-        <span class:hidden={!(ctrlHeld && shiftHeld && pHeld)}>
-            P
+        <span class:hidden={!(ctrlHeld && shiftHeld && yHeld)}>
+            Y
         </span>
     </span>
-
-    {#if showHint}
-        <span class="hint">
-            Not working? Make sure the chrome extension is installed, and that
-            the command is configured as {beginningKey} + SHIFT + P on
-            this config panel: <br/>
-
-            <pre>chrome://extensions/configureCommands</pre>
-        </span>
-    {/if}
 
     {#if allowNext}
         <span class="next">
             {footer}
+        </span>
+    {:else if showHint}
+        <span class="hint">
+            Not working? Make sure the chrome extension is installed, and that
+            the command is configured as {beginningKey} + SHIFT + Y on
+            this config panel: <br/>
+
+            <pre>chrome://extensions/configureCommands</pre> <br/>
+
+            You can also open/close this tab by clicking the slime icon on the
+            extension toolbar on the top right!
         </span>
     {/if}
 </div>
@@ -131,7 +138,7 @@
     .hint {
         font-weight: 200;
         font-size: 1.5vh;
-        margin-top: 5vh;
+        margin-top: 2.5vh;
         max-width: 75vw;
     }
 
