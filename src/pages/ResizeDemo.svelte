@@ -34,7 +34,7 @@
         <p>Need help?</p>
         <p>
             Here's a hint: You can stick this tab on top either by clicking the
-            extension icon on your top toolbar, or use the {beginningKey} + SHIFT + P hotkey.
+            extension icon on your top toolbar, or use the {beginningKey} + SHIFT + Y hotkey.
         </p>
     {/if}
 </div>
